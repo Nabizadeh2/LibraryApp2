@@ -22,7 +22,5 @@ public class UserResponseDto {
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Invalid phone number format")
     String phoneNumber;
     String photo;
-//    String username;
-//    String role;
-//    boolean active;
+
 }

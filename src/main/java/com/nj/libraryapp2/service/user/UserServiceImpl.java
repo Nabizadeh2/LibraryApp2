@@ -9,6 +9,7 @@ import com.nj.libraryapp2.mapper.UserMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +21,17 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class UserServiceImpl implements UserService{
     UserRepository userRepository;
+    @Qualifier("userMapper")
     UserMapper mapper;
     PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserResponseDto> getAllUser() {
-        return userRepository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
+        return userRepository
+                .findAll()
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override

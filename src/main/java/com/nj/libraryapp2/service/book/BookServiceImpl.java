@@ -9,6 +9,7 @@ import com.nj.libraryapp2.mapper.BookMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,16 +20,24 @@ import java.util.stream.Collectors;
 public class BookServiceImpl implements BookService {
 
     BookRepository bookRepository;
+
+    @Qualifier("bookMapper")
     BookMapper mapper;
 
     @Override
     public List<BookResponseDto> getAllBook() {
-        return bookRepository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
+        return bookRepository.findAll()
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public BookResponseDto getBookById(Long id) {
-        return bookRepository.findById(id).map(mapper::toDto).get();
+        return bookRepository
+                .findById(id)
+                .map(mapper::toDto)
+                .get();
     }
 
     @Override

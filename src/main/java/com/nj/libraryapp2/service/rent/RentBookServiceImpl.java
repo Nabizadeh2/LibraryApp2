@@ -33,7 +33,10 @@ public class RentBookServiceImpl implements RentBookService {
 
     @Override
     public RentResponseDto getRentById(Long id) {
-        return rentRepo.findById(id).map(rentMapper::toDto).orElseThrow(() ->
+        return rentRepo
+                .findById(id)
+                .map(rentMapper::toDto)
+                .orElseThrow(() ->
                 new RentNotFoundException("Rent Not Found by id: " + id));
     }
 
@@ -83,6 +86,10 @@ public class RentBookServiceImpl implements RentBookService {
 
     @Override
     public List<RentResponseDto> getActiveRents() {
-        return rentRepo.findRentBooksByActiveStatus().stream().map(rentMapper::toDto).toList();
+        return rentRepo
+                .findRentBooksByActiveStatus()
+                .stream()
+                .map(rentMapper::toDto)
+                .toList();
     }
 }
